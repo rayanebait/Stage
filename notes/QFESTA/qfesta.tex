@@ -1,0 +1,279 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, latexsym, amsfonts,amssymb, amsthm,
+    amscd, geometry, xspace, enumerate,mathtools}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{quiver, tikz}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+
+\definecolor{wgrey}{RGB}{148, 38, 55}
+
+\setlength{\oddsidemargin}{-10mm}
+\setlength{\evensidemargin}{5mm}
+\setlength{\textwidth}{175mm}
+\setlength{\headsep}{0mm}
+\setlength{\topmargin}{0mm}
+\setlength{\textheight}{220mm}
+\setlength\parindent{24pt}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\rel}{\omathcal{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\stSheaf}{\mathcal{O}}
+
+\newcommand{\cL}{\mathscr{L}}
+\newcommand{\F}{\mathscr{F}}
+\newcommand{\G}{\mathscr{G}}
+\newcommand{\D}{\mathscr{D}}
+\newcommand{\E}{\mathscr{E}}
+
+\theoremstyle{plain}
+\newtheorem{thm}[subsubsection]{Theorem}
+\newtheorem{lem}[subsubsection]{Lemma}
+\newtheorem{prop}[subsubsection]{Proposition}
+\newtheorem{cor}[subsubsection]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{defn}[subsubsection]{Definition}
+\newtheorem{rmq}[subsubsection]{Remark}
+\newtheorem{conj}[subsubsection]{Conjecture}
+\newtheorem{exmp}[subsubsection]{Examples}
+\newtheorem{quest}[subsubsection]{Exercises}
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newtheorem{note}{Note}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=wgrey,
+    filecolor=wgrey
+}
+
+\definecolor{wgrey}{RGB}{148, 38, 55}
+
+
+\begin{document}
+\section{The basic scheme}
+The diagram and parameters:
+% https://q.uiver.app/#q=WzAsOSxbMSwxLCJFXzAiXSxbMywxLCJFX3tBLDF9Il0sWzUsMSwiRV9BIl0sWzEsMywiRV8xIl0sWzUsMywiRV8yIl0sWzAsMiwiZF8xPTJeezJhfSsyXmEzXmIrM157MmJ9Il0sWzIsMCwiZF97QSwxfT0yXmEtM15iIl0sWzQsMCwiZF97QSwyfT0zXmIiXSxbNiwyLCJkXzI9M157MmJ9Il0sWzAsMSwiXFx2YXJwaGlfe0EsMX0iLDJdLFsxLDIsIlxcdmFycGhpX3tBLDJ9IiwyXSxbMCwzLCJcXHZhcnBoaV97MX0iXSxbMiw0LCJcXHZhcnBoaV97Mn0iLDJdXQ==
+\[\begin{tikzcd}
+	&& {d_{A,1}=2^a-3^b} && {d_{A,2}=3^b} \\
+	& {E_0} && {E_{A,1}} && {E_A} \\
+	{d_1=2^{2a}+2^a3^b+3^{2b}} &&&&&& {d_2=3^{2b}} \\
+	& {E_1} &&&& {E_2}
+	\arrow["{\varphi_{A,1}}"', from=2-2, to=2-4]
+	\arrow["{\varphi_{1}}", from=2-2, to=4-2]
+	\arrow["{\varphi_{A,2}}"', from=2-4, to=2-6]
+	\arrow["{\varphi_{2}}"', from=2-6, to=4-6]
+\end{tikzcd}\]
+Check that the parameters satisfy 
+\[d_1*d_{A,1}+d_2*d_{A,2}=2^{3a}\]
+the prime is taken to be $p=2^{3a}3f-1$ and the $d_2$-isogeny is computed using radical isogeny which cost 
+\[2b\log(p)\]
+compared to 
+\[2b\log(2b)\]
+for a $2b$-long $3$-rational isogeny, whiche is much more
+ costly but reduces the size of $p$. And we can't use 
+the techniques for $d_1$ and $d_{A,1}$ for $d_2$ (we could 
+for $d_{A,2}$).
+\subsection{Remarks}
+The $d_1$-isogeny has no reason to be smooth, as well as 
+the $d_{A,1}$-isogeny. How do they compute it? They are
+computing them using the endomorphism ring of $E_0$ from:
+\begin{itemize}
+    \item Represent $d_1(D-d_1)$ as a norm in $End(E_0)$
+    (we need $d_1(D-d_1)>p$). (Same for $d_{A,1}$)
+    \item Do Kani on 
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJFXzAiXSxbMCwyLCJFIl0sWzIsMiwiRV8wIl0sWzIsMCwiRSJdLFswLDEsIlxcdmFycGhpIiwyXSxbMSwyLCJcXG9tZWdhIiwyXSxbMCwzXSxbMywyXSxbMCwyLCJcXGRlbHRhIiwxXV0=
+\[\begin{tikzcd}
+	{E_0} && E \\
+	\\
+	E && {E_0}
+	\arrow[from=1-1, to=1-3]
+	\arrow["\varphi"', from=1-1, to=3-1]
+	\arrow["\delta"{description}, from=1-1, to=3-3]
+	\arrow[from=1-3, to=3-3]
+	\arrow["\omega"', from=3-1, to=3-3]
+\end{tikzcd}\]
+Since we can evaluate $\delta$.
+    \item Evaluate $\varphi$ from the $2$-dimensional 
+    isogeny.
+\end{itemize}
+They argue that the output of this algorithm can compute 
+$\tilde{O}(2^{2a})$ curves which is sufficiently secure.
+
+\subsection{Other parameter choices}
+We could take $p=2^{2a}3^{b}f-1$ with 
+\begin{itemize}
+    \item $d_1=2^{a}+3^{b}$
+    \item $d_2=3^{b}$ 
+    \item $d_{A,1}=2^a-3^b$
+    \item $d_{A,2}=3^{b}$ 
+\end{itemize}
+But now the size of the isogenies are not balanced 
+and the side isogenies have only $\lambda/2$-security.
+\section{The generalized lollipop attack}
+\textbf{REMEMBER}: At anytime, Kani is able
+to interpolate an isogeny of degree $d$ from torsion 
+images of degree $N$ \textbf{if} $N>d$ (recall that 
+$N^2>4*d$ suffices to uniquely determine our isogeny and 
+that the $2-$dimensional isogeny has degree $d+f$).
+
+This \href{https://eprint.iacr.org/2023/1433.pdf}{paper} proposes an attack 
+on FESTA and M-SIDH. They generalize the usual lollipop attack with diagram 
+
+% https://q.uiver.app/#q=WzAsMixbMCwwLCJFIl0sWzAsMiwiRV8wIl0sWzAsMSwiXFxwaGkiLDAseyJvZmZzZXQiOi0xfV0sWzEsMCwiXFx3aWRlaGF0e1xccGhpfSIsMCx7Im9mZnNldCI6LTF9XSxbMSwxLCJ3IiwwLHsiYW5nbGUiOjE4MH1dXQ==
+\[\begin{tikzcd}
+	E \\
+	\\
+	{E_0}
+	\arrow["\varphi", shift left, from=1-1, to=3-1]
+	\arrow["{\widehat{\varphi}}", shift left, from=3-1, to=1-1]
+	\arrow["w", from=3-1, to=3-1, loop, in=235, out=305, distance=10mm]
+\end{tikzcd}\]
+to a generalized lollipop attack with diagram
+
+% https://q.uiver.app/#q=WzAsNCxbMSwwLCJFXzAnIl0sWzAsMiwiRSciXSxbMywwLCJFXzAiXSxbNCwyLCJFIl0sWzAsMSwiKFxcc2lnbWFfMClfKlxccGhpIiwyXSxbMiwzLCJcXHBoaSJdLFszLDEsIlxccGhpXypcXHNpZ21hXzA9XFxzaWdtYSJdLFsyLDAsIlxcc2lnbWFfMCIsMSx7ImN1cnZlIjozfV0sWzIsMCwidyIsMSx7ImN1cnZlIjotM31dXQ==
+\[\begin{tikzcd}
+	& {E_0'} && {E_0} \\
+	\\
+	{E'} &&&& E
+	\arrow["{(\sigma_0)_*\varphi}"', from=1-2, to=3-1]
+	\arrow["{\sigma_0}"{description}, curve={height=18pt}, from=1-4, to=1-2]
+	\arrow["w"{description}, curve={height=-18pt}, from=1-4, to=1-2]
+	\arrow["\varphi", from=1-4, to=3-5]
+	\arrow["{\varphi_*\sigma_0=\sigma}", from=3-5, to=3-1]
+\end{tikzcd}\]
+The context is the following:
+\begin{defn}
+    Define a generalized lollipop diagram associated to 
+    an isogeny $\varphi: E_0\to E$ as the added data of
+    the diagram above.
+\end{defn}
+To get a FESTA trapdoor instance we add 
+\begin{itemize}
+    \item A matrix $A$ in $X\subset GL_2(\Z/N\Z)$.
+    \item A basis $<P,Q>$ of $E_0[N]$.
+\end{itemize}
+Now consider $\psi = \varphi'\circ\omega\circ \widehat{\varphi}$.
+Under some assumptions on the basis and
+the endomorphism $\omega\circ\widehat{\sigma_0}$ we can 
+in fact compute the image of $\psi$ on the scaled torsion 
+$A*(\varphi(P) \varphi(Q))^t$. Let's see why, define $M$ 
+by \[\widehat{\sigma_0}\circ \omega(P, Q)=\textbf{M}.(P, Q)^t\]
+
+\begin{flalign*}
+    [s]\circ\psi
+    \begin{pmatrix}\varphi(P)\\ \varphi(Q)\end{pmatrix}
+&=(\varphi'\circ \sigma_0)
+    \circ(\widehat{\sigma_0}\circ \omega)\circ \widehat{\varphi}
+    \begin{pmatrix}\varphi(P)\\ \varphi(Q)\end{pmatrix} \\
+    &=\sigma\circ\varphi\circ\textbf{M}\circ[d]
+    \begin{pmatrix}P\\ Q\end{pmatrix} \\
+\end{flalign*}
+Now by abuse of notation, for any $\varphi$, we write $\textbf{M}\circ\varphi=
+\varphi\circ\textbf{M}$. The left $\textbf{M}$ acting on the 
+image basis of the one on the right. Now 
+\begin{flalign*}
+    [s]\circ\psi
+    \left(\textbf{A}.\begin{pmatrix}\varphi(P)\\ \varphi(Q)\end{pmatrix}\right)
+    &=[d]\textbf{A}.\textbf{M}.\textbf{A}^{-1}\sigma
+    \left(\textbf{A}.\begin{pmatrix}\varphi(P)\\ \varphi(Q)\end{pmatrix}\right)
+\end{flalign*}
+Now if we can evaluate everything on the right we can 
+evaluate $\psi$ at torsion points. In particular 
+we need 
+\begin{itemize}
+    \item \textbf{A.M = M.A}.
+    \item Being able to compute $\sigma$.
+\end{itemize} 
+Now for the first condition in the FESTA case 
+$A$ is diagonal, so that $M$ has to be diagonal. Meaning 
+that $P,Q$ are eigenvectors of $\widehat{\sigma_0}\circ\omega$.
+For the second condition, this is even more restrictive,
+we would need to be able to compute a pushforward through 
+$\phi$. There are two cases that we can handle:
+\begin{itemize}
+    \item When $\sigma_0 =\pi$ is the frobenius.
+    \item When $\sigma_0=id$ is the identity.
+\end{itemize}
+The next section deals with the frobenius case.
+
+\subsection{The frobenius case}
+We are in the case where 
+\begin{itemize}
+    \item $\sigma_0 = \pi_0$ is the frobenius.
+    \item $\omega$ is an endomorphism to the conjugate.
+\end{itemize}
+And in particular if $E_0$ is defined over $\mathbb F_p$.
+We can take $\omega=id$!
+% https://q.uiver.app/#q=WzAsMyxbMiwwLCJFXzAiXSxbMiwyLCJFIl0sWzAsMiwiRV57KHApfSJdLFswLDEsIlxcdmFycGhpIl0sWzAsMiwiXFx2YXJwaGleeyhwKX0iLDJdLFsxLDIsIlxccGkiXSxbMCwwLCJcXHBpXzAiXV0=
+\[\begin{tikzcd}
+	&& {E_0} \\
+	\\
+	{E^{(p)}} && E
+	\arrow["{\pi_0}", from=1-3, to=1-3, loop, in=55, out=125, distance=10mm]
+	\arrow["{\varphi^{(p)}}"', from=1-3, to=3-1]
+	\arrow["\varphi", from=1-3, to=3-3]
+	\arrow["\pi", from=3-3, to=3-1]
+\end{tikzcd}\]
+\subsection{In practice}
+If we are on the FESTA case the condition $\textbf{M.A=A.M}$
+is that $(P,Q)$ are eigenvectors of the frobenius. If we 
+are in the M-SIDH case, the matrix $A$ is scalar so any 
+$M$ does it!
+\subsection{Remarks}
+The case where we have a single hidden
+image $\lambda\varphi(P)$ of size $N$
+reduces to the FESTA case and not the M-SIDH 
+case. Indeed we can see that from 
+% https://q.uiver.app/#q=WzAsMTAsWzEsMCwiRSJdLFszLDAsIkYiXSxbMSw0LCJFLzxQPiJdLFszLDQsIkYvPFxcdmFycGhpKFApPiJdLFszLDIsIkYvPFsyXm5dXFx2YXJwaGkoUCk+Il0sWzAsMCwiPFAsUT49RVsyXnsybn1dIl0sWzQsMCwiPFxcdmFycGhpKFApLFEnPj1GWzJeezJufV0iXSxbMSwyLCJFLzxbMl5uXVA+Il0sWzQsMiwiW1xccHNpJ1xcY2lyY1xcdmFycGhpKFApLCBbMl5uXVxccHNpKFEnKV0iXSxbMCwyLCJbXFxwc2koUCksWzJebl1cXHBzaShRKV0iXSxbMCwxXSxbMiwzXSxbNSwwLCJcXHN1YnNldCIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFs2LDEsIlxcc3Vwc2V0IiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEsNCwiXFxwc2knIl0sWzQsM10sWzAsNywiXFxwc2kiLDJdLFs3LDJdLFs3LDQsIlxcdmFycGhpJyIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+\[\begin{tikzcd}
+	{<P,Q>=E[2^{2n}]} & E && F & {<\varphi(P),Q'>=F[2^{2n}]} \\
+	\\
+	{[\psi(P),[2^n]\psi(Q)]} & {E/<[2^n]P>} && {F/<[2^n]\varphi(P)>} & {[\psi'\circ\varphi(P), [2^n]\psi(Q')]} \\
+	\\
+	& {E/<P>} && {F/<\varphi(P)>}
+	\arrow["\subset"{description}, draw=none, from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-4]
+	\arrow["\psi"', from=1-2, to=3-2]
+	\arrow["{\psi'}", from=1-4, to=3-4]
+	\arrow["\supset"{description}, draw=none, from=1-5, to=1-4]
+	\arrow["{\varphi'}"{description}, dashed, from=3-2, to=3-4]
+	\arrow[from=3-2, to=5-2]
+	\arrow[from=3-4, to=5-4]
+	\arrow[from=5-2, to=5-4]
+\end{tikzcd}\]
+There we have $\phi'(\ker(\widehat{\psi}))=\ker(\widehat{\psi'})$
+but $\psi$ and $\psi'$ project the $2^n$-torsion 
+to a single line so we have to have $\phi'\circ\psi(Q)
+=\lambda \psi'(Q)$ i.e. we can compute scaled torsion image 
+by a diagonal matrice so we are in the FESTA case.
+
+\textbf{Careful:} Here we suppose that we have 
+$\phi(P)$ and not $\lambda\phi(P)$ but we could 
+totally do that, so yes in the diagram above we can 
+compute the weil pairing to get $\lambda$ but 
+not in general. 
+\textbf{Careful2:} In the original FESTA, the 
+size of the torsion we have is two times smaller 
+so that having simply $\lambda \phi_A(P)$ is not 
+enough.
+\section{Counter-measures for QFESTA}
+
+
+
+
+
+
+\end{document}
+

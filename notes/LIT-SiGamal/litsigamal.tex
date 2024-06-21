@@ -1,0 +1,144 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, latexsym, amsfonts,amssymb, amsthm,
+    amscd, geometry, xspace, enumerate,mathtools}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{quiver, tikz}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+
+\definecolor{wgrey}{RGB}{148, 38, 55}
+
+\setlength{\oddsidemargin}{-10mm}
+\setlength{\evensidemargin}{5mm}
+\setlength{\textwidth}{175mm}
+\setlength{\headsep}{0mm}
+\setlength{\topmargin}{0mm}
+\setlength{\textheight}{220mm}
+\setlength\parindent{24pt}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\rel}{\omathcal{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\stSheaf}{\mathcal{O}}
+
+\newcommand{\cL}{\mathscr{L}}
+\newcommand{\F}{\mathscr{F}}
+\newcommand{\G}{\mathscr{G}}
+\newcommand{\D}{\mathscr{D}}
+\newcommand{\E}{\mathscr{E}}
+
+\theoremstyle{plain}
+\newtheorem{thm}[subsubsection]{Theorem}
+\newtheorem{lem}[subsubsection]{Lemma}
+\newtheorem{prop}[subsubsection]{Proposition}
+\newtheorem{cor}[subsubsection]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{defn}[subsubsection]{Definition}
+\newtheorem{rmq}[subsubsection]{Remark}
+\newtheorem{conj}[subsubsection]{Conjecture}
+\newtheorem{exmp}[subsubsection]{Examples}
+\newtheorem{quest}[subsubsection]{Exercises}
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newtheorem{note}{Note}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=wgrey,
+    filecolor=wgrey
+}
+
+\definecolor{wgrey}{RGB}{148, 38, 55}
+
+
+\begin{document}
+(Il joue à un jeu dangereux quand même avec le LIT problem. On veut 
+une isogénie de degré $ord(P_B)$ ou on a poussé $P_B$ à travers $phi_1$
+ducoup $ord(P_B)$ doit être suffisamment grand (Au moins $2^\lambda$) 
+mais aussi pas trop pour pas pouvoir interpoler $phi_1$.)
+\section{The general scheme}
+We have something that looks like a SIDH diagram. The main difference
+being that the order of $P_B$ doesn't permit to interpolate $\phi_1$. 
+The turnover is that $\phi_2$ is of degree near the order of $P_B$, 
+\textbf{but} we don't reveal any unscaled torsion of it. Instead of 
+computing $\phi_1$ through a push-forward, Alice can use techniques
+similar to the FESTA trapdoor inversion. Resuming:
+\begin{itemize}
+    \item The $P_B, Q_B$ images permit building the LIT diagram.
+    \item The scaled images of $P_A, Q_A$ permit building $\phi_1'$.
+    \item The images of $R$ permits doing SiGamal type encryption.
+    \item \textbf{Unscaled points are not pushed through} \phi_2 to 
+avoid the SIDH attacks.
+\end{itemize}
+The scheme looks like:
+% https://q.uiver.app/#q=WzAsMTAsWzMsMCwiRV9zIl0sWzYsMCwiRV8xIl0sWzMsMywiRV9zLzxQX0Irc1FfQj4iXSxbNiwzLCJFXzEvPFxccGhpXzEoUF9CKStzXFxwaGlfMShRX0IpPiJdLFswLDEsIlxcYnVsbGV0Il0sWzEsMSwiXFxidWxsZXQiXSxbMCwwLCJcXGJ1bGxldCJdLFsxLDAsIlxcYnVsbGV0Il0sWzAsMiwiXFxidWxsZXQiXSxbMSwyLCJcXGJ1bGxldCJdLFswLDEsIlxccGhpXzEiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkb3R0ZWQifX19XSxbMCwyLCJcXHBoaV8yIiwyXSxbMiwzLCIiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMSwzLCJcXHBoaV8yJyJdLFs0LDUsIkJvYiJdLFs2LDcsIkFsaWNlIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZG90dGVkIn19fV0sWzgsOSwiVHJhcGRvb3IiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\[\begin{tikzcd}
+	\bullet & \bullet && {E_s} &&& {E_1} \\
+	\bullet & \bullet \\
+	\bullet & \bullet \\
+	&&& {E_s/<P_B+sQ_B>} &&& {E_1/<\phi_1(P_B)+s\phi_1(Q_B)>}
+	\arrow["Alice", dotted, from=1-1, to=1-2]
+	\arrow["{\phi_1}", dotted, from=1-4, to=1-7]
+	\arrow["{\phi_2}"', from=1-4, to=4-4]
+	\arrow["{\phi_2'}", from=1-7, to=4-7]
+	\arrow["Bob", from=2-1, to=2-2]
+	\arrow["Trapdoor", dashed, from=3-1, to=3-2]
+	\arrow[dashed, from=4-4, to=4-7]
+\end{tikzcd}\]
+Now one immediate problem is that, in FESTA, there is an intermediate
+curve \[E_s\to E_{A,1}\to E_1\] that permits limiting the size of 
+the $2$-torsion we require. Here we need something else because it is
+hard to build $E_{A,1}$ at appropriate distance from $E_s$ with no 
+endomorphism ring. Moriya's idea is the following, consider the diagram:
+% https://q.uiver.app/#q=WzAsNCxbMCwzLCJFX3MvPFBfQitzUV9CPiJdLFszLDMsIkVfMS88XFxwaGlfMShQX0IpK3NcXHBoaV8xKFFfQik+Il0sWzAsMCwiRV9zLzxQX0Irc1FfQj4iXSxbMywwLCJFXzEvPFxccGhpXzEoUF9CKStzXFxwaGlfMShRX0IpPiJdLFswLDEsIlxccGhpXzEnIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzIsMywiXFxwaGlfMSciLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwwLCJbbl0iLDJdLFszLDEsIltuXSJdXQ==
+\[\begin{tikzcd}
+	{E_s/<P_B+sQ_B>} &&& {E_1/<\phi_1(P_B)+s\phi_1(Q_B)>} \\
+	\\
+	\\
+	{E_s/<P_B+sQ_B>} &&& {E_1/<\phi_1(P_B)+s\phi_1(Q_B)>}
+	\arrow["{\phi_1'}"', dashed, from=1-1, to=1-4]
+	\arrow["{[n]}"', from=1-1, to=4-1]
+	\arrow["{[n]}", from=1-4, to=4-4]
+	\arrow["{\phi_1'}"', dashed, from=4-1, to=4-4]
+\end{tikzcd}\]
+Since we know unscaled images of $\phi_1'$ as Alice, if $\phi_1'$ has 
+degree $N^2-n^2$, and $N$ is smooth, the $(N^2-n^2+n^2,N^2-n^2+n^2)$-
+isogeny is computable. The problem comes from building $\phi_1$ with the 
+right degree. The idea is to build the tuple $(E_s, E_1, \phi_1)$ from
+$E_0$. Now the idea once we have $\phi_1$ of the right degree.
+
+\subsection{Decryption}
+We denote the parameters this way:
+\begin{itemize}
+    \item $p=l_A^al_B^bl_C^cf-1$
+    \item $<P_A, Q_A> = E_s[l_A^a]$, $<P_B, Q_B> = E_s[l_B^b]$, 
+        $R\in E_s[l_C^C]$. (public parameters)
+    \item (Public key generation:)
+    \item $^t(P_1, Q_1)=A.^t(\phi_1(P_A),\phi_1(Q_A))$. (Alice phase)
+    \item $R_1=\alpha\phi_1(R)$. (Alice phase)
+    \item (Encryption:)
+    \item $^t(P_2, Q_2)=B.^t(\phi_2(P_A),\phi_2(Q_A))$, $^t(P_3, Q_3)=
+        B.^t(\phi_2'(P_1),\phi_2'(Q_1))$. (Bob phase)
+    \item $R'=\beta \phi_2(R), R_1'=\mu\phi_2'(R_1)$ (Bob phase)
+\end{itemize}
+Voir page 12. 
+
+
+
+\subsection{Building the tuple $(E_s, E_1, \phi_1)$}
+
+
+
+
+\end{document}
+

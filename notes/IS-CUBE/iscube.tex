@@ -1,0 +1,116 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, latexsym, amsfonts,amssymb, amsthm,
+    amscd, geometry, xspace, enumerate,mathtools}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{quiver, tikz}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+
+\definecolor{wgrey}{RGB}{148, 38, 55}
+
+\setlength{\oddsidemargin}{-10mm}
+\setlength{\evensidemargin}{5mm}
+\setlength{\textwidth}{175mm}
+\setlength{\headsep}{0mm}
+\setlength{\topmargin}{0mm}
+\setlength{\textheight}{220mm}
+\setlength\parindent{24pt}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\rel}{\omathcal{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\stSheaf}{\mathcal{O}}
+
+\newcommand{\cL}{\mathscr{L}}
+\newcommand{\F}{\mathscr{F}}
+\newcommand{\G}{\mathscr{G}}
+\newcommand{\D}{\mathscr{D}}
+\newcommand{\E}{\mathscr{E}}
+
+\theoremstyle{plain}
+\newtheorem{thm}[subsubsection]{Theorem}
+\newtheorem{lem}[subsubsection]{Lemma}
+\newtheorem{prop}[subsubsection]{Proposition}
+\newtheorem{cor}[subsubsection]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{defn}[subsubsection]{Definition}
+\newtheorem{rmq}[subsubsection]{Remark}
+\newtheorem{conj}[subsubsection]{Conjecture}
+\newtheorem{exmp}[subsubsection]{Examples}
+\newtheorem{quest}[subsubsection]{Exercises}
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newtheorem{note}{Note}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=wgrey,
+    filecolor=wgrey
+}
+
+\definecolor{wgrey}{RGB}{148, 38, 55}
+
+
+\begin{document}
+\section{The idea}
+The goal is to have a KEM that doesn't start from $E_0$ and has a prime
+with guaranteed size linearly related to $\lambda$ (the security param).
+Now, the \textbf{public parameters}:
+\begin{itemize}
+    \item $p=l_C^cl_Al_B^blf-1$, $l\mid (l_C^c-l_A^a)$, 
+        , $d_s=(l_C^c-l_A^a)/l$, $gcd(d_s ,l_B)=1$
+    \item $<P_B, Q_B> = E_s[l_B^b]$, $<P_C, Q_C> = E_s[l_C^c]$.
+    \item Matrices with big center acting on $E_s[l_C^c]$.
+    \item $\tau: E_s\to \tilde{E}_s$ of degree $d_s$.
+    \item $\tau$ is to be built!
+\end{itemize}
+
+The \textbf{public key}:
+\begin{itemize}
+    \item
+\end{itemize}
+\section{Rough resumee}
+Here is the base diagram.
+% https://q.uiver.app/#q=WzAsMTIsWzUsMCwiRV9zIl0sWzMsMCwiXFx0aWxkZXtFfV9zIl0sWzcsMCwiRV8xIl0sWzMsMiwiRV9zJyJdLFs3LDIsIkVfMSciXSxbMSwxXSxbMCwxXSxbMCwwXSxbMSwwXSxbMCwyXSxbMSwyXSxbNSwyLCJFIl0sWzAsMSwiXFx0YXUiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFswLDIsIlxccGhpXzEiXSxbMSwzLCIiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkb3R0ZWQifX19XSxbMiw0LCIiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkb3R0ZWQifX19XSxbNiw1LCJCb2IiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkb3R0ZWQifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFs3LDgsIkFsaWNlIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFs5LDEwLCJQdWJsaWMgICIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMTEsIiIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRvdHRlZCJ9fX1dXQ==
+\[\begin{tikzcd}
+	{} & {} && {\tilde{E}_s} && {E_s} && {E_1} \\
+	{} & {} \\
+	{} & {} && {E_s'} && E && {E_1'}
+	\arrow["Alice", no head, from=1-1, to=1-2]
+	\arrow[dotted, from=1-4, to=3-4]
+	\arrow["\tau"', dashed, no head, from=1-6, to=1-4]
+	\arrow["{\phi_1}", from=1-6, to=1-8]
+	\arrow[dotted, from=1-6, to=3-6]
+	\arrow[dotted, from=1-8, to=3-8]
+	\arrow["Bob", dotted, no head, from=2-1, to=2-2]
+	\arrow["{Public  }", dashed, no head, from=3-1, to=3-2]
+\end{tikzcd}\]
+
+The Bob arrows are SIDH arrows and push-forward of each others. The outer
+diagram:
+    % https://q.uiver.app/#q=WzAsOCxbMywwLCJcXHRpbGRle0V9X3MiXSxbNywwLCJFXzEiXSxbMywyLCJFX3MnIl0sWzcsMiwiRV8xJyJdLFsxLDFdLFswLDFdLFswLDBdLFsxLDBdLFswLDIsIiIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRvdHRlZCJ9fX1dLFsxLDMsIiIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRvdHRlZCJ9fX1dLFs1LDQsIkJvYiIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRvdHRlZCJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzYsNywiQWxpY2UiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMV1d
+\[\begin{tikzcd}
+	{} & {} && {\tilde{E}_s} &&&& {E_1} \\
+	{} & {} \\
+	&&& {E_s'} &&&& {E_1'}
+	\arrow["Alice", no head, from=1-1, to=1-2]
+	\arrow[from=1-4, to=1-8]
+	\arrow[dotted, from=1-4, to=3-4]
+	\arrow[dotted, from=1-8, to=3-8]
+	\arrow["Bob", dotted, no head, from=2-1, to=2-2]
+\end{tikzcd}\]
+will be a FESTA diagram. The codomain of $E_1'\times E_s'$ will be 
+$E\times something$ so that Alice will be able to compute $j(E)$ from the
+Weil pairing. With $j(E)$ being the shared key.
+\end{document}
+

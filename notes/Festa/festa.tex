@@ -1,0 +1,174 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, latexsym, amsfonts,amssymb, amsthm,
+    amscd, geometry, xspace, enumerate,mathtools}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{quiver, tikz}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+
+\definecolor{wgrey}{RGB}{148, 38, 55}
+
+\setlength{\oddsidemargin}{-10mm}
+\setlength{\evensidemargin}{5mm}
+\setlength{\textwidth}{175mm}
+\setlength{\headsep}{0mm}
+\setlength{\topmargin}{0mm}
+\setlength{\textheight}{220mm}
+\setlength\parindent{24pt}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\rel}{\omathcal{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\stSheaf}{\mathcal{O}}
+
+\newcommand{\cL}{\mathscr{L}}
+\newcommand{\F}{\mathscr{F}}
+\newcommand{\G}{\mathscr{G}}
+\newcommand{\D}{\mathscr{D}}
+\newcommand{\E}{\mathscr{E}}
+
+\theoremstyle{plain}
+\newtheorem{thm}[subsubsection]{Theorem}
+\newtheorem{lem}[subsubsection]{Lemma}
+\newtheorem{prop}[subsubsection]{Proposition}
+\newtheorem{cor}[subsubsection]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{defn}[subsubsection]{Definition}
+\newtheorem{rmq}[subsubsection]{Remark}
+\newtheorem{conj}[subsubsection]{Conjecture}
+\newtheorem{exmp}[subsubsection]{Examples}
+\newtheorem{quest}[subsubsection]{Exercises}
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newtheorem{note}{Note}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=wgrey,
+    filecolor=wgrey
+}
+
+\definecolor{wgrey}{RGB}{148, 38, 55}
+
+
+\begin{document}
+
+\section{The trapdoor}
+It works as follows, $A,B\in \mathcal M_b$ will be scalar matrices.\\
+
+\noindent\textbf{Public parameters}: $E_0, d_1, d_2$.\\
+\noindent\textbf{Trapdoor parameters (public key, secret key)}:
+$(pk, sk)=(E_A, (A,\phi_A))$.\\
+\noindent \textbf{Input of the trapdoor:} $K_1\subset E_0[d_1], K_2\subset E_A[d_2]$, $B$.\\
+
+\noindent \textbf{Evaluation:}
+% https://q.uiver.app/#q=WzAsMTIsWzQsMSwiRV9BIl0sWzQsMywiRV8yIl0sWzUsMywiQipBKlxcYmVnaW57cG1hdHJpeH1cXHBoaV8yXFxjaXJjXFxwaGlfQShQX2IpXFxcXCBcXHBoaV8yXFxjaXJjXFxwaGlfQShRX2IpXFxlbmR7cG1hdHJpeH0iXSxbNSwxLCJBKlxcYmVnaW57cG1hdHJpeH1cXHBoaV9BKFBfYilcXFxcIFxccGhpX0EoUV9iKVxcZW5ke3BtYXRyaXh9Il0sWzIsMSwiRV8wIl0sWzIsMywiRV8xIl0sWzEsMywiQipcXGJlZ2lue3BtYXRyaXh9XFxwaGlfMShQX2IpXFxcXCBcXHBoaV8xKFFfYilcXGVuZHtwbWF0cml4fSJdLFsxLDEsIlxcYmVnaW57cG1hdHJpeH1QX2JcXFxcIFFfYlxcZW5ke3BtYXRyaXh9Il0sWzAsMywiXFxiZWdpbntwbWF0cml4fVJfMVxcXFwgU18xXFxlbmR7cG1hdHJpeH0iXSxbNiwzLCJcXGJlZ2lue3BtYXRyaXh9Ul8yXFxcXCBTXzJcXGVuZHtwbWF0cml4fSJdLFsyLDAsIktfMSJdLFs0LDAsIktfMiJdLFswLDEsIlxccGhpXzIiLDJdLFsyLDEsIlxcbmkiLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMywwLCJcXG5pIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzQsNSwiXFxwaGlfMSJdLFs2LDUsIlxcaW4iLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbNyw0LCJcXGluIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzgsNiwiPSIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFs5LDIsIj0iLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMTAsNCwiXFxiaWdjYXAiLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMTEsMCwiXFxiaWdjYXAiLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+\[\begin{tikzcd}
+	&& {K_1} && {K_2} \\
+	& \begin{array}{c} \begin{pmatrix}P_b\\ Q_b\end{pmatrix} \end{array} & {E_0} && {E_A} & \begin{array}{c} A*\begin{pmatrix}\phi_A(P_b)\\ \phi_A(Q_b)\end{pmatrix} \end{array} \\
+	\\
+	\begin{array}{c} \begin{pmatrix}R_1\\ S_1\end{pmatrix} \end{array} & \begin{array}{c} B*\begin{pmatrix}\phi_1(P_b)\\ \phi_1(Q_b)\end{pmatrix} \end{array} & {E_1} && {E_2} & \begin{array}{c} B*A*\begin{pmatrix}\phi_2\circ\phi_A(P_b)\\ \phi_2\circ\phi_A(Q_b)\end{pmatrix} \end{array} & \begin{array}{c} \begin{pmatrix}R_2\\ S_2\end{pmatrix} \end{array}
+	\arrow["\bigcap"{description}, draw=none, from=1-3, to=2-3]
+	\arrow["\bigcap"{description}, draw=none, from=1-5, to=2-5]
+	\arrow["\in"{description}, draw=none, from=2-2, to=2-3]
+	\arrow["{\phi_1}", from=2-3, to=4-3]
+	\arrow["{\phi_2}"', from=2-5, to=4-5]
+	\arrow["\ni"{description}, draw=none, from=2-6, to=2-5]
+	\arrow["{=}"{description}, draw=none, from=4-1, to=4-2]
+	\arrow["\in"{description}, draw=none, from=4-2, to=4-3]
+	\arrow["\ni"{description}, draw=none, from=4-6, to=4-5]
+	\arrow["{=}"{description}, draw=none, from=4-7, to=4-6]
+\end{tikzcd}\]
+
+\noindent \textbf{Output:} $(E_1, R_1, S_1, E_2, R_2, S_2)$.\\
+
+\noindent Now to inverse the map, we have access to:
+\begin{itemize}
+    \item the secret key $(A, \phi_A: E_0\to E_A)$
+    \item the image points \[\begin{pmatrix}R_1\\ S_1\end{pmatrix}=B*\begin{pmatrix}\phi_1(P_b)\\ \phi_1(Q_b)\end{pmatrix}\]
+    \item and the image points \[\begin{pmatrix}R_2\\ S_2\end{pmatrix}=B*A*\begin{pmatrix}\phi_2\circ\phi_A(P_b)\\ \phi_2\circ\phi_A(Q_b)\end{pmatrix}\]
+\end{itemize}
+Consider $\psi=\phi_2\circ\phi_A\circ \widehat{\phi_1}$, which 
+has degree $=d_2d_Ad_1$, we have 
+\[
+    B*A*B^{-1}*\begin{pmatrix}\psi(R_1)\\ \psi(S_1)\end{pmatrix}=[d_1]\begin{pmatrix}R_2\\ S_2\end{pmatrix}
+\]
+But $A$ and $B$ commute so that since we know $A$ and $d_1$ we can 
+recover $\begin{pmatrix}\psi(R_1)\\ \psi(S_1)\end{pmatrix}$.
+Now we would like to recover $\psi$. We have the torsion point images
+of order $2^b>d_1d_Ad_2$ so that we can apply the usual 
+torsion attacks. The parameters just need to be worked out.\\
+\newpage
+It happens that, under the CIST² assumption, 
+the FESTA trapdoor verifies the following definition:
+\begin{defn}[Quantum partial domain one-way function]
+    Let $X_0$, $X_1$ and Y be three finite sets. A function $f : X_0\times X_1\to Y$
+is a quantum partial-domain one-way function if, for any polynomial-time quantum adversary $A$,
+the following holds:
+\[P(s'=s|s\leftarrow X_0,t\leftarrow X_1, s'\leftarrow A(f(s,t)))\]
+\end{defn}
+
+Then the OAEP transform, as described \href{https://eprint.iacr.org/2021/237.pdf}{here}
+builds a PKE from such a trapdoor functions.
+\section{The concrete instantiation}
+Consider the diagram: 
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCJFXzAiXSxbMSwwLCJcXHRpbGRle0V9X0EiXSxbMiwwLCJFX0EiXSxbMCwyLCJFXzEiXSxbMiwyLCJFXzIiXSxbMSwwLCJcXHdpZGVoYXR7XFxwaGl9X3tBLDF9Il0sWzEsMiwiXFxwaGlfe0EsMn0iLDJdLFswLDMsIlxccGhpXzEiLDJdLFsyLDQsIlxccGhpXzIiXSxbMywzLCJbbV8xXSIsMix7InJhZGl1cyI6LTN9XSxbNCw0LCJbbV8yXSIsMix7InJhZGl1cyI6LTN9XSxbMCwyLCJcXHBoaV9BIiwwLHsiY3VydmUiOi0zfV1d
+\[\begin{tikzcd}
+	{E_0} & {\tilde{E}_A} & {E_A} \\
+	\\
+	{E_1} && {E_2}
+	\arrow["{\phi_A}", curve={height=-18pt}, from=1-1, to=1-3]
+	\arrow["{\phi_1}"', from=1-1, to=3-1]
+	\arrow["{\widehat{\phi}_{A,1}}", from=1-2, to=1-1]
+	\arrow["{\phi_{A,2}}"', from=1-2, to=1-3]
+	\arrow["{\phi_2}", from=1-3, to=3-3]
+	\arrow["{[m_1]}"', from=3-1, to=3-1, loop, in=305, out=235, distance=10mm]
+	\arrow["{[m_2]}"', from=3-3, to=3-3, loop, in=305, out=235, distance=10mm]
+\end{tikzcd}\]
+Where we decomposed $\phi_A$ in $\phi_{A,1}\circ\phi_{A,2}$. The main
+idea here would be to directly get 
+
+\[\phi_2\circ\phi_A\circ \widehat{\phi}_1\]
+
+from the the $2^b$ torsion point images. We would need to have $2^b-d_2*
+d_A*d_1$ smooth. Which gives few choices and usually low efficiency.
+Instead, since we already have $\phi_A$ to invert the trapdoor. The idea
+would be to decompose $\phi_A$ as $\phi_{A,1}\circ\phi_{A,2}$ and use the
+hidden diagram
+
+% https://q.uiver.app/#q=WzAsNixbMCwwLCJFXzAiXSxbNCwwLCJFX0EiXSxbMCw0LCJFXzEiXSxbNCw0LCJFXzIiXSxbMiw1LCJFX3sxMn0iXSxbMiwxLCJcXHRpbGRle0V9X0EiXSxbMCw1LCJcXHBoaV97QSwxfSJdLFs1LDEsIlxccGhpX3tBLDJ9Il0sWzAsMiwiXFxwaGlfMSIsMl0sWzIsNCwiZ197ZF97QSwyfWRfMn0iLDJdLFs0LDMsImdfe2Rfe0EsMX1kXzF9IiwyXSxbMSwzLCJcXHBoaV8yIl0sWzUsMiwiXFxwaGlfMVxcY2lyY1xcd2lkZWhhdHtcXHBoaX1fe0EsMX0iLDFdLFs1LDMsIlxccGhpXzJcXGNpcmNcXHBoaV97QSwyfSIsMV1d
+\[\begin{tikzcd}
+	{E_0} &&&& {E_A} \\
+	&& {\tilde{E}_A} \\
+	\\
+	\\
+	{E_1} &&&& {E_2} \\
+	&& {E_{12}}
+	\arrow["{\phi_{A,1}}", from=1-1, to=2-3]
+	\arrow["{\phi_1}"', from=1-1, to=5-1]
+	\arrow["{\phi_2}", from=1-5, to=5-5]
+	\arrow["{\phi_{A,2}}", from=2-3, to=1-5]
+	\arrow["{\phi_1\circ\widehat{\phi}_{A,1}}"{description}, from=2-3, to=5-1]
+	\arrow["{\phi_2\circ\phi_{A,2}}"{description}, from=2-3, to=5-5]
+	\arrow["{g_{d_{A,2}d_2}}"', from=5-1, to=6-3]
+	\arrow["{g_{d_{A,1}d_1}}"', from=6-3, to=5-5]
+\end{tikzcd}\]
+
+In which finding good parameters amounts to solving 
+\[m_1^2d_{A,1}d_1+m_2^2d_{A,2}d_2=2^b\]
+The trick of decomposing with some scalar multiplication doesn't change
+anything to the security! The paper proposes a way to find solutions 
+with the desired properties efficiently. The $d_i's$ are all squares.
+
+
+\end{document}
