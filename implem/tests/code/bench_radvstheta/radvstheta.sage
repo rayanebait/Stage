@@ -192,6 +192,7 @@ q = randint(0, 2**(2*e2))
 while q*(2**(3*e2)-q)%2 == 0 or q*(2**(3*e2)-q)%3 == 0:
     q = randint(0, 2**(2*e2))
 
+
 P0, Q0 = torsion_basis(E0, 2**(3*e2))
 Ms = get_matrices(E0, 2, 3*e2, Fp2d, basis=[P0, Q0])
 
@@ -229,8 +230,3 @@ t4 = time()
 print(f"Computed new isogeny {E1.j_invariant()}--->{E1_.j_invariant()}\n\
         ")
 print(f"In time: {t4-t3}")
-
-
-
-
-

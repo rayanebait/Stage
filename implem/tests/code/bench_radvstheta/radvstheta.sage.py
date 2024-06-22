@@ -195,6 +195,7 @@ q = randint(_sage_const_0 , _sage_const_2 **(_sage_const_2 *e2))
 while q*(_sage_const_2 **(_sage_const_3 *e2)-q)%_sage_const_2  == _sage_const_0  or q*(_sage_const_2 **(_sage_const_3 *e2)-q)%_sage_const_3  == _sage_const_0 :
     q = randint(_sage_const_0 , _sage_const_2 **(_sage_const_2 *e2))
 
+
 P0, Q0 = torsion_basis(E0, _sage_const_2 **(_sage_const_3 *e2))
 Ms = get_matrices(E0, _sage_const_2 , _sage_const_3 *e2, Fp2d, basis=[P0, Q0])
 
@@ -231,9 +232,4 @@ t4 = time()
 print(f"Computed new isogeny {E1.j_invariant()}--->{E1_.j_invariant()}\n\
         ")
 print(f"In time: {t4-t3}")
-
-
-
-
-
 
