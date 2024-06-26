@@ -1,0 +1,89 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, latexsym, amsfonts,amssymb, amsthm,
+    amscd, geometry, xspace, enumerate,mathtools}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{quiver, tikz}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+
+\definecolor{wgrey}{RGB}{148, 38, 55}
+
+\setlength{\oddsidemargin}{-10mm}
+\setlength{\evensidemargin}{5mm}
+\setlength{\textwidth}{175mm}
+\setlength{\headsep}{0mm}
+\setlength{\topmargin}{0mm}
+\setlength{\textheight}{220mm}
+\setlength\parindent{24pt}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\rel}{\omathcal{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\stSheaf}{\mathcal{O}}
+
+\newcommand{\cL}{\mathscr{L}}
+\newcommand{\F}{\mathscr{F}}
+\newcommand{\G}{\mathscr{G}}
+\newcommand{\D}{\mathscr{D}}
+\newcommand{\E}{\mathscr{E}}
+
+\theoremstyle{plain}
+\newtheorem{thm}[subsubsection]{Theorem}
+\newtheorem{lem}[subsubsection]{Lemma}
+\newtheorem{prop}[subsubsection]{Proposition}
+\newtheorem{cor}[subsubsection]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{defn}[subsubsection]{Definition}
+\newtheorem{rmq}[subsubsection]{Remark}
+\newtheorem{conj}[subsubsection]{Conjecture}
+\newtheorem{exmp}[subsubsection]{Examples}
+\newtheorem{quest}[subsubsection]{Exercises}
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newtheorem{note}{Note}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=wgrey,
+    filecolor=wgrey
+}
+
+\definecolor{wgrey}{RGB}{148, 38, 55}
+
+
+\begin{document}
+\section{the new scheme}
+Le basique c'est celui là où on prend des isogénies radicales des
+deux côtés.
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJFX3MiXSxbMywwLCJcXHRpbGRle0V9X3MiXSxbMCwyLCJFXzEiXSxbMywyLCJFXzIiXSxbMCwxLCJkX0EiXSxbMCwyLCIzXmIiLDJdLFsxLDMsIjNeYiJdXQ==
+\[\begin{tikzcd}
+	{E_s} &&& {\tilde{E}_s} \\
+	\\
+	{E_1} &&& {E_2}
+	\arrow["{d_A}", from=1-1, to=1-4]
+	\arrow["{3^2b}"', from=1-1, to=3-1]
+	\arrow["{3^2b}", from=1-4, to=3-4]
+\end{tikzcd}\]
+
+On cherche ducoup $a$ et $b$ t.q. $2^{6a}-3^{4b}d_A=x^2+y^2$. Pour ça 
+on fait varier $d_A$ de $3^{2b}-log(p)$ à $3^{2b}-log(p)$ et on teste 
+si c'est premier (bcp plus de chance de trouver un premier qu'un composé
+avec la bonne tête, et surtout c'est prouvable). Ducoup 
+\[p=2^{6a}3^{2b}f-1\]
+pour un \textbf{chiffrement ultra rapide} mais un déchiffrement super 
+long. Ou
+\[p=2^{6a}3f-1\]
+pour un chiffrement plus lent et un déchiffrement plus rapide.
+
+\end{document}
+
